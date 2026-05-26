@@ -1,0 +1,197 @@
+{
+  "type" : "CIMLayerDocument",
+  "version" : "3.5.0",
+  "build" : 57366,
+  "layers" : [
+    "CIMPATH=map/tin_rem_fit_vf_less8m_min_poly3_s5_clip_mf_teanaway_vbp.json"
+  ],
+  "layerDefinitions" : [
+    {
+      "type" : "CIMRasterLayer",
+      "name" : "tin_rem_Fit_VF_Less8m_min_poly3_s5_clip_MF_Teanaway_VBP",
+      "uRI" : "CIMPATH=map/tin_rem_fit_vf_less8m_min_poly3_s5_clip_mf_teanaway_vbp.json",
+      "sourceModifiedTime" : {
+        "type" : "TimeInstant"
+      },
+      "useSourceMetadata" : true,
+      "description" : "tin_rem_Fit_VF_Less8m_min_poly3_s5_clip_MF_Teanaway_VBP",
+      "expanded" : true,
+      "layerType" : "Operational",
+      "showLegends" : true,
+      "visibility" : false,
+      "displayCacheType" : "Permanent",
+      "maxDisplayCacheAge" : 5,
+      "showPopups" : true,
+      "serviceLayerID" : -1,
+      "refreshRate" : -1,
+      "refreshRateUnit" : "esriTimeUnitsSeconds",
+      "blendingMode" : "Multiply",
+      "allowDrapingOnIntegratedMesh" : true,
+      "dataConnection" : {
+        "type" : "CIMStandardDataConnection",
+        "workspaceConnectionString" : "DATABASE=..\\Teanaway_Tutorial_Helstab.gdb",
+        "workspaceFactory" : "FileGDB",
+        "dataset" : "tin_rem_Fit_VF_Less8m_min_poly3_s5_clip_MF_Teanaway_VBP",
+        "datasetType" : "esriDTRasterDataset"
+      },
+      "colorizer" : {
+        "type" : "CIMRasterClassifyColorizer",
+        "resamplingType" : "NearestNeighbor",
+        "noDataColor" : {
+          "type" : "CIMRGBColor",
+          "values" : [
+            255,
+            255,
+            255,
+            0
+          ]
+        },
+        "normalizationType" : "Nothing",
+        "classBreaks" : [
+          {
+            "type" : "CIMRasterClassBreak",
+            "upperBound" : 0.89418251187193587,
+            "label" : "-1.328 - 0.894",
+            "color" : {
+              "type" : "CIMRGBColor",
+              "values" : [
+                190,
+                210,
+                255,
+                100
+              ]
+            }
+          },
+          {
+            "type" : "CIMRasterClassBreak",
+            "upperBound" : 1.7952911975337005,
+            "label" : "0.895 - 1.795",
+            "color" : {
+              "type" : "CIMRGBColor",
+              "values" : [
+                56,
+                168,
+                0,
+                100
+              ]
+            }
+          },
+          {
+            "type" : "CIMRasterClassBreak",
+            "upperBound" : 2.6363259708180142,
+            "label" : "1.796 - 2.636",
+            "color" : {
+              "type" : "CIMRGBColor",
+              "values" : [
+                255,
+                255,
+                190,
+                100
+              ]
+            }
+          },
+          {
+            "type" : "CIMRasterClassBreak",
+            "upperBound" : 3.6575824812346807,
+            "label" : "2.637 - 3.658",
+            "color" : {
+              "type" : "CIMRGBColor",
+              "values" : [
+                255,
+                170,
+                0,
+                100
+              ]
+            }
+          },
+          {
+            "type" : "CIMRasterClassBreak",
+            "upperBound" : 4.8590607287837004,
+            "label" : "3.659 - 4.859",
+            "color" : {
+              "type" : "CIMRGBColor",
+              "values" : [
+                255,
+                0,
+                0,
+                100
+              ]
+            }
+          },
+          {
+            "type" : "CIMRasterClassBreak",
+            "upperBound" : 6.2407607134650727,
+            "label" : "4.86 - 6.241",
+            "color" : {
+              "type" : "CIMRGBColor",
+              "values" : [
+                168,
+                0,
+                0,
+                100
+              ]
+            }
+          },
+          {
+            "type" : "CIMRasterClassBreak",
+            "upperBound" : 7.9829041724111507,
+            "label" : "6.242 - 7.983",
+            "color" : {
+              "type" : "CIMRGBColor",
+              "values" : [
+                115,
+                0,
+                0,
+                100
+              ]
+            }
+          }
+        ],
+        "classificationMethod" : "NaturalBreaks",
+        "colorRamp" : {
+          "type" : "CIMLinearContinuousColorRamp",
+          "colorSpace" : {
+            "type" : "CIMICCColorSpace",
+            "url" : "Default RGB"
+          },
+          "fromColor" : {
+            "type" : "CIMHSVColor",
+            "values" : [
+              60,
+              100,
+              96,
+              100
+            ]
+          },
+          "toColor" : {
+            "type" : "CIMHSVColor",
+            "values" : [
+              0,
+              100,
+              96,
+              100
+            ]
+          }
+        },
+        "exclusionRanges" : [
+          8,
+          800
+        ],
+        "field" : "Value",
+        "minimumBreak" : -1.32855224609375,
+        "showInAscendingOrder" : true,
+        "numberFormat" : {
+          "type" : "CIMNumericFormat",
+          "alignmentOption" : "esriAlignLeft",
+          "alignmentWidth" : 12,
+          "roundingOption" : "esriRoundNumberOfDecimals",
+          "roundingValue" : 3,
+          "useSeparator" : true
+        },
+        "alwaysUpdateClassLabels" : true
+      }
+    }
+  ],
+  "rGBColorProfile" : "sRGB IEC61966-2.1",
+  "cMYKColorProfile" : "U.S. Web Coated (SWOP) v2"
+}
