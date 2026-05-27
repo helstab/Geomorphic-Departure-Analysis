@@ -1,0 +1,81 @@
+site_name: A Guide to Geomorphic Departure Analysis with GIS
+site_description: Applying the Geomorphic Grade Line and Relative Elevation Models to Inform Process-Based Restoration Strategies
+site_author: USDA Forest Service — Aquatic Restoration Team
+
+# If publishing to GitHub Pages, set this to your repo URL
+# repo_url: https://github.com/YOUR_USER/YOUR_REPO
+# repo_name: YOUR_USER/YOUR_REPO
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - toc.follow
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Source Sans Pro
+    code: Source Code Pro
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - 1. Overview: sections/01-overview.md
+  - 2. Watershed Setting: sections/02-watershed-setting.md
+  - 3. Valley Floor Approximation: sections/03-valley-floor-approximation.md
+  - 4. Transect Minimum Elevation: sections/04-transect-minimum-elevation-spline-fit.md
+  - 5. Classify Valley Floor Surfaces: sections/05-classify-valley-floor-surfaces.md
+  - 6. Geomorphic Grade Line Spline Fit: sections/06-geomorphic-grade-line-spline-fit.md
+  - 7. Build GGL Surface: sections/07-build-ggl-surface.md
+  - 8. GGL Design Surface: sections/08-ggl-design-surface.md
+  - 9. Appendix: sections/09-appendix.md
+
+extra:
+  generator: false
+
+copyright: |
+  Original document: USDA Forest Service, Washington Office — Enterprise Program | Restoration Services
