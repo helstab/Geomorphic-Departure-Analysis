@@ -1,0 +1,1549 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Applying the Geomorphic Grade Line and Relative Elevation Models to Inform Process-Based Restoration Strategies">
+      
+      
+        <meta name="author" content="USDA Forest Service — Aquatic Restoration Team">
+      
+      
+      
+        <link rel="prev" href="../02-watershed-setting/">
+      
+      
+        <link rel="next" href="../04-transect-minimum-elevation-spline-fit/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>3. Valley Floor Approximation - A Guide to Geomorphic Departure Analysis with GIS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3-valley-floor-approximation-qvf" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A Guide to Geomorphic Departure Analysis with GIS" class="md-header__button md-logo" aria-label="A Guide to Geomorphic Departure Analysis with GIS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A Guide to Geomorphic Departure Analysis with GIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3. Valley Floor Approximation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  1. Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../02-watershed-setting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  2. Watershed Setting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  3. Valley Floor Approximation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../04-transect-minimum-elevation-spline-fit/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  4. Transect Minimum Elevation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../05-classify-valley-floor-surfaces/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  5. Classify Valley Floor Surfaces
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-geomorphic-grade-line-spline-fit/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  6. Geomorphic Grade Line Spline Fit
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../07-build-ggl-surface/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  7. Build GGL Surface
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../08-ggl-design-surface/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  8. GGL Design Surface
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../09-appendix/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  9. Appendix
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A Guide to Geomorphic Departure Analysis with GIS" class="md-nav__button md-logo" aria-label="A Guide to Geomorphic Departure Analysis with GIS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    A Guide to Geomorphic Departure Analysis with GIS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-watershed-setting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Watershed Setting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Valley Floor Approximation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Valley Floor Approximation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31-hydrography-flowline-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Hydrography (Flowline) Preparation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Hydrography (Flowline) Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-gather-flowlines-existing-dataset-modeled-or-user-drawn-eg-nhd-3dep-or-lidar-derived-flowlines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1 Gather flowlines (existing dataset, modeled, or user drawn) (e.g., NHD (3DEP) or LiDAR-derived flowlines)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312-generate-stations-points-along-the-flow-line-generate-points-along-a-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2 Generate stations (points) along the flow line (Generate Points Along a Line).
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313-extract-lidar-elevation-to-flow-line-stations-extract-multi-values-to-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3 Extract LiDAR elevation to flow line stations (Extract Multi Values to Points).
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#314-alter-rename-accumulation-fields-alter-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.4 Alter (rename) Accumulation Fields (Alter Field)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#315-add-valley_id-field-with-data-type-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.5 Add “Valley_ID” Field with Data Type “Text”
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#316-make-a-scatter-plot-and-inspect-flowline-longitudinal-profile-make-a-chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.6 Make a Scatter Plot and Inspect Flowline Longitudinal Profile (Make a Chart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#317-highlight-select-and-label-stations-by-valley-id-using-calculate-field-in-the-attribute-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.7 Highlight (select) and label stations by Valley ID using Calculate Field in the Attribute Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-inverse-distance-weighted-relative-elevation-model-idw-rem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Inverse Distance Weighted Relative Elevation Model (IDW-REM)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Inverse Distance Weighted Relative Elevation Model (IDW-REM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-build-inverse-distance-weighted-idw-interpolated-raster-from-flowline-station-lidar-elevations-where-valley_id-sandstone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1 Build Inverse Distance Weighted (IDW) interpolated raster from flowline station LiDAR elevations, where Valley_ID = Sandstone.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-generate-relative-elevation-model-from-idw-idw-rem-minus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2 Generate Relative Elevation Model from IDW (IDW-REM) (Minus).
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.2 Generate Relative Elevation Model from IDW (IDW-REM) (Minus).">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3221-set-the-environments-to-match-the-idw-raster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2.1 SET the Environments to match the IDW-Raster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-manually-classify-rem-symbology-to-determine-the-relative-elevation-value-that-fills-the-valley-floor-to-the-hillslope-edge-or-qvf-perimeter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3 Manually classify REM symbology to determine the relative elevation value that fills the valley floor to the hillslope edge, or Qvf perimeter. ***
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324-inspect-and-confirm-max-value-with-idw-rem-elevation-profiles-in-exploratory-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4 Inspect and Confirm Max value with IDW-REM Elevation Profiles in Exploratory Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325-reclassify-the-idw-rem-using-the-valley-floor-fill-threshold-relative-elevations-reclassify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.5 Reclassify the IDW-REM using the valley floor fill threshold relative elevations (Reclassify).
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#326-convert-reclassified-raster-to-polygon-raster-to-polygon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.6 Convert Reclassified Raster to Polygon (Raster to Polygon).
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#327-manually-inspect-and-cleansimplify-the-valley-floor-polygon-eliminate-polygon-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.7 Manually Inspect and clean/simplify the valley floor polygon.*** Eliminate Polygon Part
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#328-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.8 Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-valley-floor-centerline-stations-and-transects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Valley Floor Centerline, Stations, and Transects
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Valley Floor Centerline, Stations, and Transects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-createdraw-valley-floor-centerline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1 Create/Draw valley floor centerline. ***
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-generate-stations-along-the-centerline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2 Generate stations along the centerline.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-alter-accumulation-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.3 Alter Accumulation Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334-add-surface_type-field-with-data-type-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.4 Add “Surface_Type” Field with Data Type “Text”
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#335-inspect-and-modify-transect-orientation-as-needed-by-selecting-the-transect-and-using-edit-vertices-editing-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.5 Inspect and modify transect orientation as needed by selecting the transect and using “Edit Vertices” editing tool.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#336-clip-transects-to-valley-floor-polygon-using-modify-features-clip-tool-which-will-modify-the-existing-feature-rather-than-creating-a-new-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.6 Clip Transects to Valley Floor Polygon using Modify Features Clip Tool, which will modify the existing feature rather than creating a new feature.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#337-spatially-join-valley-centerline-stations-ids-to-transects-right-click-on-transect-layer-join-and-relates-add-spatial-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.7 Spatially Join valley centerline stations IDs to transects. Right-click on Transect Layer &gt; Join and Relates &gt; Add Spatial Join.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#338-label-transects-by-station-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.8 Label Transects by Station Length
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#339-flip-orient-transect-station-ids-to-make-increasing-upstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.9 Flip (Orient) Transect Station IDs to make increasing upstream.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3310-right-click-on-station-attribute-calculate-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.10 Right-Click on Station Attribute &gt; Calculate Field.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3311-generate-stations-along-transects-generate-points-along-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.11 Generate stations along transects (Generate Points Along Lines)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3312-alter-accumulation-fields-and-delete-unneeded-fields-for-a-cleaner-table-orig_id-orig_fid-join_count-orig_fid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.12 Alter Accumulation Fields and Delete unneeded Fields for a cleaner table (ORIG_ID, ORIG_FID, Join_Count, ORIG_FID).
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3313-add-surface-elevation-to-transect-stations-extract-multi-values-to-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.13 Add surface elevation to transect stations (Extract Multi Values to Points).
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-transect-minimum-elevation-spline-fit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Transect Minimum Elevation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-classify-valley-floor-surfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Classify Valley Floor Surfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-geomorphic-grade-line-spline-fit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Geomorphic Grade Line Spline Fit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-build-ggl-surface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Build GGL Surface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-ggl-design-surface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. GGL Design Surface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Appendix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="3-valley-floor-approximation-qvf">3 Valley Floor Approximation (Qvf)<a class="headerlink" href="#3-valley-floor-approximation-qvf" title="Permanent link">&para;</a></h1>
+<p>Objective : Develop a polygon approximation of the Quaternary valley floor.</p>
+<p>Purpose : Isolating the area of analysis to the valley floor allows for easier evaluation and relatability of surface types/origins within.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notes: Many tools are available for identifying valley floors; this method employs a straightforward valley-filling strategy using an Inverse Distance Weighted Relative Elevation Model (IDW-REM), which represents the height above the primary flowline.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The complexity of surfaces within the boundary is highly variable (e.g., glacial, volcanic, tectonic, hillslope, etc.) and is dependent on local watershed forming processes over geologic timescales. The more accurately we can identify and classify surfaces by type/origin, the more confident we can be in our assessment of the GGL.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The initial Qvf polygon should be an overestimate rather than an underestimate, meaning it should include initial hillslopes and tributaries. The idea is that it will be easier to remove unhelpful data as more is learned about the valley.</p>
+</div>
+<p>Data Needs:</p>
+<ul>
+<li>LiDAR Digital Elevation Model</li>
+<li>Flowlines</li>
+</ul>
+<p>Generalized Workflow:</p>
+<ol>
+<li>Gather flowlines</li>
+<li>Generate IDW-REM</li>
+<li>Generate valley floor polygon</li>
+<li>Generate valley floor features (centerline, transects, and stations)</li>
+</ol>
+<h2 id="31-hydrography-flowline-preparation">3.1 Hydrography (Flowline) Preparation<a class="headerlink" href="#31-hydrography-flowline-preparation" title="Permanent link">&para;</a></h2>
+<p>Objective: Develop polyline approximation of the primary flowline of the Middle Fork Teanaway River, (current condition).</p>
+<p>Purpose: Used to build flowline stations with elevation values to inspect longitudinal profile and build a relative elevation model that will be used to approximate the alluvial valley.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notes: Bathymetric LiDAR was used in this example, approximating the thalweg rather than the water surface. The difference is assumed to be negligible in this example given very low surface flows (&lt;5 cfs) and shallow pool depths at the time of LiDAR data acquisition. Users can also use non-bathymetric data but should consider how the results might impact the number of surface classes.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This approach can be expanded to include multiple flowlines within a catchment for broader valley bottom delineation.</p>
+</div>
+<p>Generalized Workflow:</p>
+<ol>
+<li>Gather flowlines</li>
+<li>Generate points (stations) along flow lines</li>
+<li>Extract DEM values to points</li>
+<li>Update and clean attribute table</li>
+<li>Plot longitudinal profile</li>
+<li>Identify and label valley segments</li>
+</ol>
+<h3 id="311-gather-flowlines-existing-dataset-modeled-or-user-drawn-eg-nhd-3dep-or-lidar-derived-flowlines">3.1.1 Gather flowlines (existing dataset, modeled, or user drawn) (e.g., NHD (3DEP) or LiDAR-derived flowlines)<a class="headerlink" href="#311-gather-flowlines-existing-dataset-modeled-or-user-drawn-eg-nhd-3dep-or-lidar-derived-flowlines" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 7" src="../../figures/figure_07.png" /></p>
+<p><small><strong>Figure 7</strong>.</small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note: LiDAR-derived flowlines are used in this example. The main channel segments were merged into a single feature, and all dangling segments removed.</p>
+</div>
+<h3 id="312-generate-stations-points-along-the-flow-line-generate-points-along-a-line">3.1.2 Generate stations (points) along the flow line (Generate Points Along a Line).<a class="headerlink" href="#312-generate-stations-points-along-the-flow-line-generate-points-along-a-line" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 8" src="../../figures/figure_08.png" /></p>
+<p><small><strong>Figure 8</strong>.</small></p>
+<h3 id="313-extract-lidar-elevation-to-flow-line-stations-extract-multi-values-to-points">3.1.3 Extract LiDAR elevation to flow line stations (Extract Multi Values to Points).<a class="headerlink" href="#313-extract-lidar-elevation-to-flow-line-stations-extract-multi-values-to-points" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 9" src="../../figures/figure_09.png" /></p>
+<p><small><strong>Figure 9</strong>.</small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note : Multiple LiDAR datasets can be appended at the same time.</p>
+</div>
+<h3 id="314-alter-rename-accumulation-fields-alter-field">3.1.4 Alter (rename) Accumulation Fields (Alter Field)<a class="headerlink" href="#314-alter-rename-accumulation-fields-alter-field" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 10" src="../../figures/figure_10.png" /></p>
+<p><small><strong>Figure 10</strong>.</small></p>
+<p><img alt="Figure 11" src="../../figures/figure_11.png" /></p>
+<p><small><strong>Figure 11</strong>.</small></p>
+<h3 id="315-add-valley_id-field-with-data-type-text">3.1.5 Add “Valley_ID” Field with Data Type “Text”<a class="headerlink" href="#315-add-valley_id-field-with-data-type-text" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 12" src="../../figures/figure_12.png" /></p>
+<p><small><strong>Figure 12</strong>.</small></p>
+<h3 id="316-make-a-scatter-plot-and-inspect-flowline-longitudinal-profile-make-a-chart">3.1.6 Make a Scatter Plot and Inspect Flowline Longitudinal Profile (Make a Chart)<a class="headerlink" href="#316-make-a-scatter-plot-and-inspect-flowline-longitudinal-profile-make-a-chart" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 13" src="../../figures/figure_13.png" /></p>
+<p><small><strong>Figure 13</strong>.</small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notes : Select and investigate potential slope breaks and erroneous (non-thalweg) locations.</p>
+</div>
+<p><img alt="Figure 14" src="../../figures/figure_14.png" /></p>
+<p><small><strong>Figure 14</strong>.</small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notes : Upstream most slope break is a known geomorphic control where bedrock geology transitions from volcanic basalts to sedimentary sandstone. Middle highlighted points are erroneously high due to proximity to undercut hillslope. Lower slope break is the known downstream geomorphic control at the confluence of the Middle and West Forks of the Teanaway.</p>
+</div>
+<h3 id="317-highlight-select-and-label-stations-by-valley-id-using-calculate-field-in-the-attribute-table">3.1.7 Highlight (select) and label stations by Valley ID using Calculate Field in the Attribute Table<a class="headerlink" href="#317-highlight-select-and-label-stations-by-valley-id-using-calculate-field-in-the-attribute-table" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 15" src="../../figures/figure_15.png" /></p>
+<p><small><strong>Figure 15</strong>.</small></p>
+<p><img alt="Figure 16" src="../../figures/figure_16.png" /></p>
+<p><small><strong>Figure 16</strong>.</small></p>
+<p><img alt="Figure 17" src="../../figures/figure_17.png" /></p>
+<p><small><strong>Figure 17</strong>.</small></p>
+<p><img alt="Figure 18" src="../../figures/figure_18.png" /></p>
+<p><small><strong>Figure 18</strong>.</small></p>
+<p><img alt="Figure 19" src="../../figures/figure_19.png" /></p>
+<p><small><strong>Figure 19</strong>.</small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note: Alternatively, the user can create subsets of the station groups.</p>
+</div>
+<h2 id="32-inverse-distance-weighted-relative-elevation-model-idw-rem">3.2 Inverse Distance Weighted Relative Elevation Model (IDW-REM)<a class="headerlink" href="#32-inverse-distance-weighted-relative-elevation-model-idw-rem" title="Permanent link">&para;</a></h2>
+<p>Objective : Generate an IDW-REM by applying Inverse Distance Weighted interpolation to bathymetric flowline elevation data and subtracting results from surface elevations (DEM). Purpose : This first REM will be used to approximate the Qvf boundary by classifying elevations that are more likely within the Qvf. The filtered IDW-REM will then be used to create a Qvf polygon.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note : Classification (grouping) of IDW-REM values is generally more accurate when evaluated between geomorphic controls (within a contiguous valley), meaning that the slope profile within the valley is distinct from the upstream and downstream reaches.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is also important to note that the IDW-REM will initially extend beyond the area (laterally and longitudinally). The goal is to explore that data and identify the most likely valley floor boundaries.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A bathymetric IDW-REM ideally has a minimum value of zero, however the interpolated surface is rather coarse and will likely produce some values less than zero. Another explanation for values less than zero could be gravel pits dug below the thalweg in the valley floor and slope breaks between stations.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Symbology Tip: While the raster layer is highlighted, click the “Raster Layer” tab and set “resampling Type” to “Bilinear”, and set “Layer Blend” to “Multiply.”</p>
+</div>
+<p><img alt="Figure 20" src="../../figures/figure_20.png" /></p>
+<p><small><strong>Figure 20</strong>.</small></p>
+<p>General Workflow:</p>
+<ol>
+<li>Generate IDW interpolated surface from flowline station elevations.</li>
+<li>Generate Relative Elevation Model by subtracting IDW from DEM.</li>
+<li>Identify relative elevation of hillslope break from IDW-REM symbology and 3D analyst.</li>
+<li>Reclassify IDW-REM to group valley floor surfaces.</li>
+<li>Convert reclassified raster to polygon.</li>
+<li>Manually inspect and clean valley floor polygon.</li>
+</ol>
+<h3 id="321-build-inverse-distance-weighted-idw-interpolated-raster-from-flowline-station-lidar-elevations-where-valley_id-sandstone">3.2.1 Build Inverse Distance Weighted (IDW) interpolated raster from flowline station LiDAR elevations, where Valley_ID = Sandstone.<a class="headerlink" href="#321-build-inverse-distance-weighted-idw-interpolated-raster-from-flowline-station-lidar-elevations-where-valley_id-sandstone" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 21" src="../../figures/figure_21.png" /></p>
+<p><small><strong>Figure 21</strong>.</small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notes : Depending on the extent of your LiDAR DEM and flowline(s) it may be beneficial to set a fixed search radius, as was done in this example, by first measuring the apparent maximum valley width (600m). Additionally, setting the Environments to align the IDW Raster with the LiDAR dataset produces cleaner results.</p>
+</div>
+<p><img alt="Figure 22" src="../../figures/figure_22.png" /></p>
+<p><small><strong>Figure 22</strong>.</small></p>
+<p><img alt="Figure 23" src="../../figures/figure_23.png" /></p>
+<p><small><strong>Figure 23</strong>.</small></p>
+<h3 id="322-generate-relative-elevation-model-from-idw-idw-rem-minus">3.2.2 Generate Relative Elevation Model from IDW (IDW-REM) (Minus).<a class="headerlink" href="#322-generate-relative-elevation-model-from-idw-idw-rem-minus" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 24" src="../../figures/figure_24.png" /></p>
+<p><small><strong>Figure 24</strong>.</small></p>
+<h4 id="3221-set-the-environments-to-match-the-idw-raster">3.2.2.1 SET the Environments to match the IDW-Raster<a class="headerlink" href="#3221-set-the-environments-to-match-the-idw-raster" title="Permanent link">&para;</a></h4>
+<p><img alt="Figure 25" src="../../figures/figure_25.png" /></p>
+<p><small><strong>Figure 25</strong>.</small></p>
+<p><img alt="Figure 26" src="../../figures/figure_26.png" /></p>
+<p><small><strong>Figure 26</strong>.</small></p>
+<h3 id="323-manually-classify-rem-symbology-to-determine-the-relative-elevation-value-that-fills-the-valley-floor-to-the-hillslope-edge-or-qvf-perimeter">3.2.3 Manually classify REM symbology to determine the relative elevation value that fills the valley floor to the hillslope edge, or Qvf perimeter. ***<a class="headerlink" href="#323-manually-classify-rem-symbology-to-determine-the-relative-elevation-value-that-fills-the-valley-floor-to-the-hillslope-edge-or-qvf-perimeter" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Leave primary symbology as “Stretch”</li>
+<li>Choose a multi-band Color Scheme (Bathymetric displayed)</li>
+<li>Set Stretch Type as Minimum Maximum</li>
+<li>Check “Edit min/max values”</li>
+<li>Adjust the Min and Max values to focus on valley floor</li>
+</ol>
+<p><img alt="Figure 27" src="../../figures/figure_27.png" /></p>
+<p><small><strong>Figure 27</strong>.</small></p>
+<p>Min = 0m and Max = 10m</p>
+<p><img alt="Figure 28" src="../../figures/figure_28.png" /></p>
+<p><small><strong>Figure 28</strong>.</small></p>
+<h3 id="324-inspect-and-confirm-max-value-with-idw-rem-elevation-profiles-in-exploratory-analysis">3.2.4 Inspect and Confirm Max value with IDW-REM Elevation Profiles in Exploratory Analysis<a class="headerlink" href="#324-inspect-and-confirm-max-value-with-idw-rem-elevation-profiles-in-exploratory-analysis" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Add Elevation Source Layer (LiDAR).</li>
+<li>Open Exploratory Analysis from “Analysis” Tab.</li>
+<li>Draw and inspect profiles across the full extent of the valley floor.</li>
+<li>Identify IDW-REM value at the hillslope edge.</li>
+</ol>
+<p><img alt="Figure 29" src="../../figures/figure_29.png" /></p>
+<p><small><strong>Figure 29</strong>.</small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note: Hover over the profile to identify IDW-REM value at hillslope boundary.</p>
+</div>
+<p><img alt="Figure 30" src="../../figures/figure_30.png" /></p>
+<p><small><strong>Figure 30</strong>.</small></p>
+<p><img alt="Figure 31" src="../../figures/figure_31.png" /></p>
+<p><small><strong>Figure 31</strong>.</small></p>
+<p>Based on the elevation profile it appears the alluvial valleys relative elevations are safely less than 8m in vertical height from the bathymetric flowline.</p>
+<h3 id="325-reclassify-the-idw-rem-using-the-valley-floor-fill-threshold-relative-elevations-reclassify">3.2.5 Reclassify the IDW-REM using the valley floor fill threshold relative elevations (Reclassify).<a class="headerlink" href="#325-reclassify-the-idw-rem-using-the-valley-floor-fill-threshold-relative-elevations-reclassify" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Primary Symbology = Classify</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Method = Manual Interval</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Classes = 2</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Upper Value = 8</p>
+</div>
+<p><img alt="Figure 32" src="../../figures/figure_32.png" /></p>
+<p><small><strong>Figure 32</strong>.</small></p>
+<p><img alt="Figure 33" src="../../figures/figure_33.png" /></p>
+<p><small><strong>Figure 33</strong>.</small></p>
+<h3 id="326-convert-reclassified-raster-to-polygon-raster-to-polygon">3.2.6 Convert Reclassified Raster to Polygon (Raster to Polygon).<a class="headerlink" href="#326-convert-reclassified-raster-to-polygon-raster-to-polygon" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 34" src="../../figures/figure_34.png" /></p>
+<p><small><strong>Figure 34</strong>.</small></p>
+<p><img alt="Figure 35" src="../../figures/figure_35.png" /></p>
+<p><small><strong>Figure 35</strong>.</small></p>
+<h3 id="327-manually-inspect-and-cleansimplify-the-valley-floor-polygon-eliminate-polygon-part">3.2.7 Manually Inspect and clean/simplify the valley floor polygon.*** Eliminate Polygon Part<a class="headerlink" href="#327-manually-inspect-and-cleansimplify-the-valley-floor-polygon-eliminate-polygon-part" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 36" src="../../figures/figure_36.png" /></p>
+<p><small><strong>Figure 36</strong>.</small></p>
+<p>Manual Editing using primary with the “Reshape” editing tool.</p>
+<p><img alt="Figure 37" src="../../figures/figure_37.png" /></p>
+<p><small><strong>Figure 37</strong>.</small></p>
+<p><img alt="Figure 38" src="../../figures/figure_38.png" /></p>
+<p><small><strong>Figure 38</strong>.</small></p>
+<h3 id="328-discussion">3.2.8 Discussion<a class="headerlink" href="#328-discussion" title="Permanent link">&para;</a></h3>
+<h2 id="33-valley-floor-centerline-stations-and-transects">3.3 Valley Floor Centerline, Stations, and Transects<a class="headerlink" href="#33-valley-floor-centerline-stations-and-transects" title="Permanent link">&para;</a></h2>
+<p>Objective : Use the Polygon and supporting data*** to generate the valley centerline, centerline stations, transects, and transect stations.</p>
+<p>Purpose : These products are fundamental to the analysis. The primary purpose of the valley centerline is to inform the orientation of the valley transects and their stations. In later steps we will classify transect stations based on their most plausible geomorphic origin, aiming to describe and isolate the Holocene fluvial process space (T1) from other surfaces within the alluvial valley. This will allow us to restrict, and fit Geomorphic Grade Line to the mean elevation of the T1 classified geomorphic surface.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notes: Supporting data may include existing geomorphic/geologic/soil assessments, as well as intermediate GIS-derived features (e.g., contours, slope, aerial imagery), to inform the centerline position. In the MF Teanaway River example, we are incorporating work from Schanz, et al, 2019 to help with our interpretation of these surfaces.</p>
+</div>
+<p>General Workflow:</p>
+<ol>
+<li>Generate valley floor centerline and stations.</li>
+<li>Extract DEM values to stations.</li>
+<li>Update and clean attribute table.</li>
+<li>Generate transects along valley floor centerline.</li>
+<li>Update and clean attribute table.</li>
+<li>Inspect and clean transects.</li>
+<li>Spatial join valley floor stations to transects.</li>
+<li>Generate transect stations</li>
+<li>Update and clean attribute table.</li>
+<li>Extract DEM values to stations.</li>
+</ol>
+<h3 id="331-createdraw-valley-floor-centerline">3.3.1 Create/Draw valley floor centerline. ***<a class="headerlink" href="#331-createdraw-valley-floor-centerline" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 39" src="../../figures/figure_39.png" /></p>
+<p><small><strong>Figure 39</strong>.</small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note: There are tools in ArcGIS Pro to identify the centerline of a polygon, but they require additional licenses. In this example there is a manually drawn polyline.</p>
+</div>
+<h3 id="332-generate-stations-along-the-centerline">3.3.2 Generate stations along the centerline.<a class="headerlink" href="#332-generate-stations-along-the-centerline" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 40" src="../../figures/figure_40.png" /></p>
+<p><small><strong>Figure 40</strong>.</small></p>
+<h3 id="333-alter-accumulation-fields">3.3.3 Alter Accumulation Fields<a class="headerlink" href="#333-alter-accumulation-fields" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 41" src="../../figures/figure_41.png" /></p>
+<p><small><strong>Figure 41</strong>.</small></p>
+<p><img alt="Figure 42" src="../../figures/figure_42.png" /></p>
+<p><small><strong>Figure 42</strong>.</small></p>
+<h3 id="334-add-surface_type-field-with-data-type-text">3.3.4 Add “Surface_Type” Field with Data Type “Text”<a class="headerlink" href="#334-add-surface_type-field-with-data-type-text" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 43" src="../../figures/figure_43.png" /></p>
+<p><small><strong>Figure 43</strong>.</small></p>
+<ol>
+<li>Extract LiDAR and IDW-REM values to Valley Centerline Stations ( Extract Multi Values to Points ).</li>
+</ol>
+<p><img alt="Figure 44" src="../../figures/figure_44.png" /></p>
+<p><small><strong>Figure 44</strong>.</small></p>
+<ol>
+<li>Generate Valley Centerline Transects (Generate Transects Along Lines)</li>
+</ol>
+<p><img alt="Figure 45" src="../../figures/figure_45.png" /></p>
+<p><small><strong>Figure 45</strong>.</small></p>
+<p><img alt="Figure 46" src="../../figures/figure_46.png" /></p>
+<p><small><strong>Figure 46</strong>.</small></p>
+<h3 id="335-inspect-and-modify-transect-orientation-as-needed-by-selecting-the-transect-and-using-edit-vertices-editing-tool">3.3.5 Inspect and modify transect orientation as needed by selecting the transect and using “Edit Vertices” editing tool.<a class="headerlink" href="#335-inspect-and-modify-transect-orientation-as-needed-by-selecting-the-transect-and-using-edit-vertices-editing-tool" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Valley curvature requires some transect modification to better orient a transect and</li>
+</ul>
+<p>also present transect from crossing the valley floor twice</p>
+<p><img alt="Figure 47" src="../../figures/figure_47.png" /></p>
+<p><small><strong>Figure 47</strong>.</small></p>
+<p><img alt="Figure 48" src="../../figures/figure_48.png" /></p>
+<p><small><strong>Figure 48</strong>.</small></p>
+<p><img alt="Figure 49" src="../../figures/figure_49.png" /></p>
+<p><small><strong>Figure 49</strong>.</small></p>
+<p><img alt="Figure 50" src="../../figures/figure_50.png" /></p>
+<p><small><strong>Figure 50</strong>.</small></p>
+<h3 id="336-clip-transects-to-valley-floor-polygon-using-modify-features-clip-tool-which-will-modify-the-existing-feature-rather-than-creating-a-new-feature">3.3.6 Clip Transects to Valley Floor Polygon using Modify Features Clip Tool, which will modify the existing feature rather than creating a new feature.<a class="headerlink" href="#336-clip-transects-to-valley-floor-polygon-using-modify-features-clip-tool-which-will-modify-the-existing-feature-rather-than-creating-a-new-feature" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 51" src="../../figures/figure_51.png" /></p>
+<p><small><strong>Figure 51</strong>.</small></p>
+<ul>
+<li>Input Features: MFT_Flowline_GPAL_1m_Sandstone_VFP_Less8m_EPP</li>
+<li>Buffer Distance: 10m</li>
+<li>“Preserve”</li>
+</ul>
+<p><img alt="Figure 52" src="../../figures/figure_52.png" /></p>
+<p><small><strong>Figure 52</strong>.</small></p>
+<ul>
+<li>Target Features: MFT_VCL_GTAL_100m (Select All)</li>
+</ul>
+<p><img alt="Figure 53" src="../../figures/figure_53.png" /></p>
+<p><small><strong>Figure 53</strong>.</small></p>
+<p><img alt="Figure 54" src="../../figures/figure_54.png" /></p>
+<p><small><strong>Figure 54</strong>.</small></p>
+<p><img alt="Figure 55" src="../../figures/figure_55.png" /></p>
+<p><small><strong>Figure 55</strong>.</small></p>
+<h3 id="337-spatially-join-valley-centerline-stations-ids-to-transects-right-click-on-transect-layer-join-and-relates-add-spatial-join">3.3.7 Spatially Join valley centerline stations IDs to transects. Right-click on Transect Layer &gt; Join and Relates &gt; Add Spatial Join.<a class="headerlink" href="#337-spatially-join-valley-centerline-stations-ids-to-transects-right-click-on-transect-layer-join-and-relates-add-spatial-join" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Target Features: Transects</li>
+<li>Join Features: VCL Stations</li>
+<li>Check “Keep All Target Features”</li>
+<li>Match Option: Intersect</li>
+<li>Check Permanently Join Fields</li>
+<li>Search Radius: 0.5m (half your VCL station interval)</li>
+</ul>
+<p><img alt="Figure 56" src="../../figures/figure_56.png" /></p>
+<p><small><strong>Figure 56</strong>.</small></p>
+<p><img alt="Figure 57" src="../../figures/figure_57.png" /></p>
+<p><small><strong>Figure 57</strong>.</small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note: Set the search radius to half your station interval length (0.5m in this example)</p>
+</div>
+<h3 id="338-label-transects-by-station-length">3.3.8 Label Transects by Station Length<a class="headerlink" href="#338-label-transects-by-station-length" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 58" src="../../figures/figure_58.png" /></p>
+<p><small><strong>Figure 58</strong>.</small></p>
+<h3 id="339-flip-orient-transect-station-ids-to-make-increasing-upstream">3.3.9 Flip (Orient) Transect Station IDs to make increasing upstream.<a class="headerlink" href="#339-flip-orient-transect-station-ids-to-make-increasing-upstream" title="Permanent link">&para;</a></h3>
+<h3 id="3310-right-click-on-station-attribute-calculate-field">3.3.10 Right-Click on Station Attribute &gt; Calculate Field.<a class="headerlink" href="#3310-right-click-on-station-attribute-calculate-field" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Code = where “n” is equal to the total number of transects.</li>
+</ul>
+<p><img alt="Figure 59" src="../../figures/figure_59.png" /></p>
+<p><small><strong>Figure 59</strong>.</small></p>
+<p><img alt="Figure 60" src="../../figures/figure_60.png" /></p>
+<p><small><strong>Figure 60</strong>.</small></p>
+<p><img alt="Figure 61" src="../../figures/figure_61.png" /></p>
+<p><small><strong>Figure 61</strong>.</small></p>
+<h3 id="3311-generate-stations-along-transects-generate-points-along-lines">3.3.11 Generate stations along transects (Generate Points Along Lines)<a class="headerlink" href="#3311-generate-stations-along-transects-generate-points-along-lines" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 62" src="../../figures/figure_62.png" /></p>
+<p><small><strong>Figure 62</strong>.</small></p>
+<h3 id="3312-alter-accumulation-fields-and-delete-unneeded-fields-for-a-cleaner-table-orig_id-orig_fid-join_count-orig_fid">3.3.12 Alter Accumulation Fields and Delete unneeded Fields for a cleaner table (ORIG_ID, ORIG_FID, Join_Count, ORIG_FID).<a class="headerlink" href="#3312-alter-accumulation-fields-and-delete-unneeded-fields-for-a-cleaner-table-orig_id-orig_fid-join_count-orig_fid" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 63" src="../../figures/figure_63.png" /></p>
+<p><small><strong>Figure 63</strong>.</small></p>
+<p><img alt="Figure 64" src="../../figures/figure_64.png" /></p>
+<p><small><strong>Figure 64</strong>.</small></p>
+<h3 id="3313-add-surface-elevation-to-transect-stations-extract-multi-values-to-points">3.3.13 Add surface elevation to transect stations (Extract Multi Values to Points).<a class="headerlink" href="#3313-add-surface-elevation-to-transect-stations-extract-multi-values-to-points" title="Permanent link">&para;</a></h3>
+<p><img alt="Figure 65" src="../../figures/figure_65.png" /></p>
+<p><small><strong>Figure 65</strong>.</small></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Original document: USDA Forest Service, Washington Office — Enterprise Program | Restoration Services
+
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "toc.follow", "toc.integrate", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

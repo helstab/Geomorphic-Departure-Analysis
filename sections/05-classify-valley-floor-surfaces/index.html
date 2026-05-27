@@ -1,0 +1,1037 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Applying the Geomorphic Grade Line and Relative Elevation Models to Inform Process-Based Restoration Strategies">
+      
+      
+        <meta name="author" content="USDA Forest Service — Aquatic Restoration Team">
+      
+      
+      
+        <link rel="prev" href="../04-transect-minimum-elevation-spline-fit/">
+      
+      
+        <link rel="next" href="../06-geomorphic-grade-line-spline-fit/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>5. Classify Valley Floor Surfaces - A Guide to Geomorphic Departure Analysis with GIS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5-explore-and-classify-valley-floor-surface-types" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A Guide to Geomorphic Departure Analysis with GIS" class="md-header__button md-logo" aria-label="A Guide to Geomorphic Departure Analysis with GIS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A Guide to Geomorphic Departure Analysis with GIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. Classify Valley Floor Surfaces
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  1. Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../02-watershed-setting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  2. Watershed Setting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../03-valley-floor-approximation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  3. Valley Floor Approximation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../04-transect-minimum-elevation-spline-fit/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  4. Transect Minimum Elevation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  5. Classify Valley Floor Surfaces
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-geomorphic-grade-line-spline-fit/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  6. Geomorphic Grade Line Spline Fit
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../07-build-ggl-surface/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  7. Build GGL Surface
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../08-ggl-design-surface/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  8. GGL Design Surface
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../09-appendix/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  9. Appendix
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A Guide to Geomorphic Departure Analysis with GIS" class="md-nav__button md-logo" aria-label="A Guide to Geomorphic Departure Analysis with GIS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    A Guide to Geomorphic Departure Analysis with GIS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-watershed-setting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Watershed Setting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-valley-floor-approximation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Valley Floor Approximation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-transect-minimum-elevation-spline-fit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Transect Minimum Elevation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Classify Valley Floor Surfaces
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Classify Valley Floor Surfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51-classify-surfaces-typeorigin-based-on-transect-min-fit-rem-natural-breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Classify Surfaces TYPE/ORIGIN Based on Transect-Min Fit-REM Natural Breaks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Classify Surfaces TYPE/ORIGIN Based on Transect-Min Fit-REM Natural Breaks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-natural-breaks-jenks-grouping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1 Natural Breaks (Jenks) Grouping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1.1 Natural Breaks (Jenks) Grouping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5111-three-breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1.1 Three Breaks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5112-four-breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1.2 Four Breaks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5113-five-breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1.3 Five Breaks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5114-six-breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1.4 Six Breaks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5115-seven-breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1.5 Seven Breaks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-reclassify-breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.2 Reclassify Breaks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513-raster-to-polygon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.3 Raster to Polygon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-add-surface_type-field-and-label-breaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.4 Add “Surface_Type” field and label breaks.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515-spatially-join-surface-types-to-transect-stations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.5 Spatially Join Surface Types to Transect Stations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#516-plot-and-inspect-line-chart-and-box-plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.6 Plot and Inspect Line Chart and Box Plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#517-draw-and-classifyreclassify-additional-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.7 Draw and classify/reclassify additional surfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-geomorphic-grade-line-spline-fit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Geomorphic Grade Line Spline Fit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-build-ggl-surface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Build GGL Surface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-ggl-design-surface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. GGL Design Surface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Appendix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="5-explore-and-classify-valley-floor-surface-types">5 Explore and Classify Valley Floor Surface Types<a class="headerlink" href="#5-explore-and-classify-valley-floor-surface-types" title="Permanent link">&para;</a></h1>
+<p>Objective : Create a polygon feature class to identify and label various geomorphic surfaces (e.g. channel, floodplain, terrace, hillslope, fans, modified surfaces, etc.) and their origins within the Qvf perimeter and append values to transect stations.</p>
+<p>Purpose : Isolate the most likely pre-Anthropocene surfaces and fit a polynomial spline to only those surfaces.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notes:</p>
+</div>
+<h2 id="51-classify-surfaces-typeorigin-based-on-transect-min-fit-rem-natural-breaks">5.1 Classify Surfaces TYPE/ORIGIN Based on Transect-Min Fit-REM Natural Breaks<a class="headerlink" href="#51-classify-surfaces-typeorigin-based-on-transect-min-fit-rem-natural-breaks" title="Permanent link">&para;</a></h2>
+<p>Objective: Reclassify REM based on likely surface groupings and classify additional surface types with a polygon.</p>
+<p>Purpose: Use distribution of relative elevation by surface type.</p>
+<h3 id="511-natural-breaks-jenks-grouping">5.1.1 Natural Breaks (Jenks) Grouping<a class="headerlink" href="#511-natural-breaks-jenks-grouping" title="Permanent link">&para;</a></h3>
+<p>Use Jenks (Natural Breaks) symbology to sequentially investigate increasing number of breaks/surfaces. Additionally, estimate the number of geomorphic surfaces based on transect profiles (3d analyst).</p>
+<p>Minimum number of plausible surfaces with bathymetric data:</p>
+<p>I. Existing/Incised channel (low surfaces). There may be an additional inset floodplain surface, but it will likely initially group with the existing channel. II. Non-down-valley-surfaces (high surfaces). Alluvial fans, roads and constructed features, pastures, colluvial deposits, etc. These surfaces are best identified, labeled, and removed from the groups as their values will serve as noise and reduce the accuracy of the groups. Additionally, we can use natural breaks analysis to help classify these surfaces. III. All other down-valley geomorphic processes (may include multiple alluvial or glacial terraces)</p>
+<p>We start with three breaks and investigate the distribution. We then guess, based on our understanding of the site, how additional groups will divide the current distribution prior to increasing the number of groups by 1. We repeat this step while using supporting information and transect profiles (3d analyst) to describe the likely number of distinct geomorphic surfaces and explain their likely origin. In the MF Teanaway River example, we relied upon Schanz et al 2019, and their carbon dating and field works to differentiate seven steps within the valley of interest. In the screenshots below, we start with three breaks and explore the valley. We continue adding breaks, four, five, six and eventually seven. We then overlayed the breaks documented by Schanz et all and compared our results.</p>
+<h4 id="5111-three-breaks">5.1.1.1 Three Breaks<a class="headerlink" href="#5111-three-breaks" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../../figures/figure_83.png" /></p>
+<p><img alt="" src="../../figures/figure_84.png" /></p>
+<h4 id="5112-four-breaks">5.1.1.2 Four Breaks<a class="headerlink" href="#5112-four-breaks" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../../figures/figure_85.png" /></p>
+<p><img alt="" src="../../figures/figure_86.png" /></p>
+<h4 id="5113-five-breaks">5.1.1.3 Five Breaks<a class="headerlink" href="#5113-five-breaks" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../../figures/figure_87.png" /></p>
+<p><img alt="" src="../../figures/figure_88.png" /></p>
+<h4 id="5114-six-breaks">5.1.1.4 Six Breaks<a class="headerlink" href="#5114-six-breaks" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../../figures/figure_89.png" /></p>
+<p><img alt="" src="../../figures/figure_90.png" /></p>
+<h4 id="5115-seven-breaks">5.1.1.5 Seven Breaks<a class="headerlink" href="#5115-seven-breaks" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../../figures/figure_91.png" /></p>
+<p><img alt="" src="../../figures/figure_92.png" /></p>
+<p><img alt="" src="../../figures/figure_93.png" /></p>
+<p><img alt="" src="../../figures/figure_94.png" /></p>
+<p><img alt="" src="../../figures/figure_95.png" /></p>
+<p><img alt="" src="../../figures/figure_96.png" /></p>
+<h3 id="512-reclassify-breaks">5.1.2 Reclassify Breaks<a class="headerlink" href="#512-reclassify-breaks" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../../figures/figure_97.png" /></p>
+<h3 id="513-raster-to-polygon">5.1.3 Raster to Polygon<a class="headerlink" href="#513-raster-to-polygon" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../../figures/figure_98.png" /></p>
+<h3 id="514-add-surface_type-field-and-label-breaks">5.1.4 Add “Surface_Type” field and label breaks.<a class="headerlink" href="#514-add-surface_type-field-and-label-breaks" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../../figures/figure_99.png" /></p>
+<h3 id="515-spatially-join-surface-types-to-transect-stations">5.1.5 Spatially Join Surface Types to Transect Stations<a class="headerlink" href="#515-spatially-join-surface-types-to-transect-stations" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../../figures/figure_100.png" /></p>
+<h3 id="516-plot-and-inspect-line-chart-and-box-plot">5.1.6 Plot and Inspect Line Chart and Box Plot<a class="headerlink" href="#516-plot-and-inspect-line-chart-and-box-plot" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../../figures/figure_101.png" /></p>
+<p><img alt="" src="../../figures/figure_102.png" /></p>
+<h3 id="517-draw-and-classifyreclassify-additional-surfaces">5.1.7 Draw and classify/reclassify additional surfaces<a class="headerlink" href="#517-draw-and-classifyreclassify-additional-surfaces" title="Permanent link">&para;</a></h3>
+<p>This can be started prior to natural breaks grouping, but more likely is a continue process as we develop a deeper understanding of the valley.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Original document: USDA Forest Service, Washington Office — Enterprise Program | Restoration Services
+
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "toc.follow", "toc.integrate", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

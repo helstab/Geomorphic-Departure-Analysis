@@ -1,0 +1,1107 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Applying the Geomorphic Grade Line and Relative Elevation Models to Inform Process-Based Restoration Strategies">
+      
+      
+        <meta name="author" content="USDA Forest Service — Aquatic Restoration Team">
+      
+      
+      
+        <link rel="prev" href="../01-overview/">
+      
+      
+        <link rel="next" href="../03-valley-floor-approximation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2. Watershed Setting - A Guide to Geomorphic Departure Analysis with GIS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-describe-watershed-setting-and-historical-context" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A Guide to Geomorphic Departure Analysis with GIS" class="md-header__button md-logo" aria-label="A Guide to Geomorphic Departure Analysis with GIS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A Guide to Geomorphic Departure Analysis with GIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Watershed Setting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  1. Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  2. Watershed Setting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../03-valley-floor-approximation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  3. Valley Floor Approximation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../04-transect-minimum-elevation-spline-fit/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  4. Transect Minimum Elevation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../05-classify-valley-floor-surfaces/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  5. Classify Valley Floor Surfaces
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-geomorphic-grade-line-spline-fit/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  6. Geomorphic Grade Line Spline Fit
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../07-build-ggl-surface/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  7. Build GGL Surface
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../08-ggl-design-surface/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  8. GGL Design Surface
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../09-appendix/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  9. Appendix
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A Guide to Geomorphic Departure Analysis with GIS" class="md-nav__button md-logo" aria-label="A Guide to Geomorphic Departure Analysis with GIS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    A Guide to Geomorphic Departure Analysis with GIS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Watershed Setting
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Watershed Setting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-geomorphic-setting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Geomorphic Setting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Geomorphic Setting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-physiography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1 Physiography
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-lithology-and-surficial-geology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2 Lithology and Surficial Geology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-valley-geometry-and-confinement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3 Valley Geometry and Confinement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-hydrologic-regime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Hydrologic Regime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Hydrologic Regime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-streams-and-waterbody-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 Streams and Waterbody Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-hydrograph-and-flow-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 Hydrograph and Flow Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-groundwater-interactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 Groundwater Interactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224-water-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4 Water Quality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-ecologic-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Ecologic Context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Ecologic Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-ecoregionvegetation-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1 Ecoregion/Vegetation Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-geomorphically-functional-biology-flora-identify-and-describe-vegetation-types-that-influence-fluvial-processes-explain-how-these-plant-communities-such-as-riparian-forests-eg-old-growth-conifers-providing-large-woody-debris-root-networks-for-bank-stability-in-high-energy-systems-or-stable-graminoid-communities-eg-bank-stabilization-flow-resistance-in-low-energy-systems-may-affect-sediment-dynamics-flow-regimes-and-habitat-complexity-note-how-their-functional-role-likely-varies-with-energy-regime-and-site-specific-conditions-fauna-identify-animal-species-and-their-relative-abundance-and-influence-that-act-as-ecosystem-engineers-or-keystone-species-directly-or-indirectly-shaping-the-physical-environment-of-the-watershed-examples-such-as-beavers-dam-construction-wetland-creation-sediment-retention-hydrological-modification-and-anadromous-fish-nutrient-cycling-bioturbation-of-spawning-gravels-and-describe-their-functional-role-in-modifying-hydrology-sediment-dynamics-and-habitat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2 Geomorphically Functional Biology Flora: Identify and describe vegetation types that influence fluvial processes. Explain how these plant communities, such as riparian forests (e.g., old-growth conifers providing large woody debris, root networks for bank stability in high-energy systems) or stable graminoid communities (e.g., bank stabilization, flow resistance in low-energy systems), may affect sediment dynamics, flow regimes, and habitat complexity. Note how their functional role likely varies with energy regime and site-specific conditions. Fauna: Identify animal species, and their relative abundance and influence, that act as ecosystem engineers or keystone species, directly or indirectly shaping the physical environment of the watershed. Examples such as beavers (dam construction, wetland creation, sediment retention, hydrological modification) and anadromous fish (nutrient cycling, bioturbation of spawning gravels), and describe their functional role in modifying hydrology, sediment dynamics, and habitat.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-invasive-species" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3 Invasive Species
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-historical-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Historical Context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Historical Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-indigenous-heritage-and-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1 Indigenous Heritage and Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-land-use-and-management-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2 Land Use and Management History
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-major-disturbance-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3 Major Disturbance Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244-fire-history-and-management-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4 Fire History and Management Impacts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-valley-floor-approximation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Valley Floor Approximation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-transect-minimum-elevation-spline-fit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Transect Minimum Elevation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-classify-valley-floor-surfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Classify Valley Floor Surfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-geomorphic-grade-line-spline-fit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Geomorphic Grade Line Spline Fit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-build-ggl-surface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Build GGL Surface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-ggl-design-surface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. GGL Design Surface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Appendix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="2-describe-watershed-setting-and-historical-context">2 Describe Watershed Setting and Historical Context<a class="headerlink" href="#2-describe-watershed-setting-and-historical-context" title="Permanent link">&para;</a></h1>
+<p>Continually compile and synthesize existing data to establish a baseline understanding of watershed characteristics, controlling processes, and historical trajectory. Review available literature, datasets, and regulatory documents to characterize local valley conditions.</p>
+<p>Given the complexity of watershed processes and the limitations of available data, this section should explicitly acknowledge the inherent uncertainty in both interpretation and inference. In many cases, the information needed to fully explain observed patterns will be incomplete, contradictory, or entirely absent. As such, the goal is not to present definitive conclusions or a fixed account of watershed conditions. Instead, this section should remain a “living” body of work that evolves as new information, perspectives, and analyses emerge.</p>
+<p>Rather than focusing solely on established facts, use the available evidence to develop plausible hypotheses that help explain and contextualize watershed form and function. These hypotheses should be viewed as working interpretations—tools to guide investigation, monitoring priorities, restoration design, and future refinement. The relative importance of each component will vary across watersheds, and uncertainty should be embraced as a natural and expected part of understanding dynamic geomorphic and ecological systems.</p>
+<h2 id="21-geomorphic-setting">2.1 Geomorphic Setting<a class="headerlink" href="#21-geomorphic-setting" title="Permanent link">&para;</a></h2>
+<p>This section describes the physical form and structure of the watershed, emphasizing the underlying geological controls and the resulting landforms. It moves from broad regional context to specific valley and stream characteristics.</p>
+<h3 id="211-physiography">2.1.1 Physiography<a class="headerlink" href="#211-physiography" title="Permanent link">&para;</a></h3>
+<p>Characterize the broad regional landscape features and their general expression. Evaluate the watershed's position within larger geographic context.</p>
+<h3 id="212-lithology-and-surficial-geology">2.1.2 Lithology and Surficial Geology<a class="headerlink" href="#212-lithology-and-surficial-geology" title="Permanent link">&para;</a></h3>
+<p>Identify the fundamental geological materials present. This includes the types of bedrock (e.g., granite, sandstone, shale, limestone, volcanics, etc.) and unconsolidated surficial deposits (e.g., glacial till, alluvium, colluvium, loess). These generally represent high-order controls, as these materials dictate erodibility, permeability, and soil development, and help explain past conditions and recovery potential.</p>
+<h3 id="213-valley-geometry-and-confinement">2.1.3 Valley Geometry and Confinement<a class="headerlink" href="#213-valley-geometry-and-confinement" title="Permanent link">&para;</a></h3>
+<p>Describe the specific physical characteristics of the stream valleys themselves, which are a direct result of the regional landforms, geology, and stream dynamics. This includes:</p>
+<ul>
+<li>Valley gradient: The average slope of the valley floor.</li>
+<li>Valley width/confinement: The degree to which the stream is restricted by valley walls</li>
+</ul>
+<p>(e.g., narrow, bedrock-confined canyons vs. broad, unconfined alluvial valleys).</p>
+<ul>
+<li>Valley floor features: The types of landforms found within the valley bottom, such as</li>
+</ul>
+<p>floodplains, terraces, alluvial fans, or colluvial fans.</p>
+<h2 id="22-hydrologic-regime">2.2 Hydrologic Regime<a class="headerlink" href="#22-hydrologic-regime" title="Permanent link">&para;</a></h2>
+<p>This section outlines the characteristic patterns of water movement and storage within the watershed, from the overall network to specific hydrologic properties.</p>
+<h3 id="221-streams-and-waterbody-network">2.2.1 Streams and Waterbody Network<a class="headerlink" href="#221-streams-and-waterbody-network" title="Permanent link">&para;</a></h3>
+<p>Characterize (model) the watershed's surface water network, primarily defined by LiDAR-derived flow lines. This generally includes the spatial arrangement of streams, their classification (e.g., perennial, intermittent, ephemeral), stream order (Strahler and Shreve), and cumulative drainage area. Additionally, important natural waterbodies (e.g., lakes, ponds, wetlands) and human-made features like reservoirs, canals, and diversions should also be identified.</p>
+<h3 id="222-hydrograph-and-flow-characteristics">2.2.2 Hydrograph and Flow Characteristics<a class="headerlink" href="#222-hydrograph-and-flow-characteristics" title="Permanent link">&para;</a></h3>
+<p>Describe the temporal patterns of streamflow, including informative hydrograph shapes, seasonality of flow (e.g., snowmelt-dominated, rain-fed), magnitude and frequency of peak flows (floods) and low flows (droughts), and baseflow conditions.</p>
+<h3 id="223-groundwater-interactions">2.2.3 Groundwater Interactions<a class="headerlink" href="#223-groundwater-interactions" title="Permanent link">&para;</a></h3>
+<p>Describe the role of subsurface water in the watershed and how it applies to the valley of interest. This covers the presence and characteristics of aquifers, the degree of connection between surface water and groundwater, and how groundwater contributes to streamflow (baseflow) or is recharged by surface water.</p>
+<h3 id="224-water-quality">2.2.4 Water Quality<a class="headerlink" href="#224-water-quality" title="Permanent link">&para;</a></h3>
+<p>Identify known or potential physical, chemical, and biological water quality impairments. This may include 303(d) listed waterbodies and parameters of concern (e.g., temperature, nutrients, sediment load).</p>
+<h2 id="23-ecologic-context">2.3 Ecologic Context<a class="headerlink" href="#23-ecologic-context" title="Permanent link">&para;</a></h2>
+<p>This section describes the living components of the watershed, moving from broad ecological classifications to specific species and their interactions with fluvial geomorphic processes.</p>
+<h3 id="231-ecoregionvegetation-types">2.3.1 Ecoregion/Vegetation Types<a class="headerlink" href="#231-ecoregionvegetation-types" title="Permanent link">&para;</a></h3>
+<p>Place the watershed within the broader ecological classification system (e.g., EPA Ecoregions). Describe the overall ecological character, climate, and the general distribution of plant and animal life typical of the region.</p>
+<h3 id="232-geomorphically-functional-biology-flora-identify-and-describe-vegetation-types-that-influence-fluvial-processes-explain-how-these-plant-communities-such-as-riparian-forests-eg-old-growth-conifers-providing-large-woody-debris-root-networks-for-bank-stability-in-high-energy-systems-or-stable-graminoid-communities-eg-bank-stabilization-flow-resistance-in-low-energy-systems-may-affect-sediment-dynamics-flow-regimes-and-habitat-complexity-note-how-their-functional-role-likely-varies-with-energy-regime-and-site-specific-conditions-fauna-identify-animal-species-and-their-relative-abundance-and-influence-that-act-as-ecosystem-engineers-or-keystone-species-directly-or-indirectly-shaping-the-physical-environment-of-the-watershed-examples-such-as-beavers-dam-construction-wetland-creation-sediment-retention-hydrological-modification-and-anadromous-fish-nutrient-cycling-bioturbation-of-spawning-gravels-and-describe-their-functional-role-in-modifying-hydrology-sediment-dynamics-and-habitat">2.3.2 Geomorphically Functional Biology Flora: Identify and describe vegetation types that influence fluvial processes. Explain how these plant communities, such as riparian forests (e.g., old-growth conifers providing large woody debris, root networks for bank stability in high-energy systems) or stable graminoid communities (e.g., bank stabilization, flow resistance in low-energy systems), may affect sediment dynamics, flow regimes, and habitat complexity. Note how their functional role likely varies with energy regime and site-specific conditions. Fauna: Identify animal species, and their relative abundance and influence, that act as ecosystem engineers or keystone species, directly or indirectly shaping the physical environment of the watershed. Examples such as beavers (dam construction, wetland creation, sediment retention, hydrological modification) and anadromous fish (nutrient cycling, bioturbation of spawning gravels), and describe their functional role in modifying hydrology, sediment dynamics, and habitat.<a class="headerlink" href="#232-geomorphically-functional-biology-flora-identify-and-describe-vegetation-types-that-influence-fluvial-processes-explain-how-these-plant-communities-such-as-riparian-forests-eg-old-growth-conifers-providing-large-woody-debris-root-networks-for-bank-stability-in-high-energy-systems-or-stable-graminoid-communities-eg-bank-stabilization-flow-resistance-in-low-energy-systems-may-affect-sediment-dynamics-flow-regimes-and-habitat-complexity-note-how-their-functional-role-likely-varies-with-energy-regime-and-site-specific-conditions-fauna-identify-animal-species-and-their-relative-abundance-and-influence-that-act-as-ecosystem-engineers-or-keystone-species-directly-or-indirectly-shaping-the-physical-environment-of-the-watershed-examples-such-as-beavers-dam-construction-wetland-creation-sediment-retention-hydrological-modification-and-anadromous-fish-nutrient-cycling-bioturbation-of-spawning-gravels-and-describe-their-functional-role-in-modifying-hydrology-sediment-dynamics-and-habitat" title="Permanent link">&para;</a></h3>
+<h3 id="233-invasive-species">2.3.3 Invasive Species<a class="headerlink" href="#233-invasive-species" title="Permanent link">&para;</a></h3>
+<p>Identify any non-native species (plant or animal) that have established populations within the watershed and are causing or have the potential to cause ecological or geomorphic harm. Describe their distribution and potential impacts.</p>
+<h2 id="24-historical-context">2.4 Historical Context<a class="headerlink" href="#24-historical-context" title="Permanent link">&para;</a></h2>
+<p>This section addresses the long-term human presence and the significant events, both natural and human-caused, that have shaped the watershed's current conditions.</p>
+<h3 id="241-indigenous-heritage-and-values">2.4.1 Indigenous Heritage and Values<a class="headerlink" href="#241-indigenous-heritage-and-values" title="Permanent link">&para;</a></h3>
+<p>Recognize and describe the historical and ongoing presence, cultural values, traditional ecological knowledge, and land use practices of Indigenous peoples within the watershed. Acknowledge their deep connection to the land and water.</p>
+<h3 id="242-land-use-and-management-history">2.4.2 Land Use and Management History<a class="headerlink" href="#242-land-use-and-management-history" title="Permanent link">&para;</a></h3>
+<p>Outline the historical and current human land use patterns and associated management within the watershed. Identify land ownership boundaries (e.g., public, private, tribal) and describe management approaches for activities such as agriculture, forestry, grazing, urban/rural development, and transportation infrastructure.</p>
+<h3 id="243-major-disturbance-events">2.4.3 Major Disturbance Events<a class="headerlink" href="#243-major-disturbance-events" title="Permanent link">&para;</a></h3>
+<p>Identify significant events, both natural and anthropogenic, that have substantially altered the watershed's geomorphology, hydrology, or ecology (processes). This section provides context for the current state of the watershed.</p>
+<p>Natural Disturbances: Specific natural events that have likely impacted the watershed, such as major floods, large-scale wildfires, significant landslides, or severe droughts.</p>
+<p>Anthropogenic Disturbances: Identify significant post-colonial alterations that have had lasting impacts on the watershed's geomorphology, hydrology, or ecology. This includes events such as extensive historical logging, mining operations, dam construction, railroads, significant urbanization, channelization projects, widespread pollution events, and other major land-use conversions.</p>
+<h3 id="244-fire-history-and-management-impacts">2.4.4 Fire History and Management Impacts<a class="headerlink" href="#244-fire-history-and-management-impacts" title="Permanent link">&para;</a></h3>
+<p>Characterize the historical fire regime and how human land management practices (e.g., fire suppression, prescribed burning) have altered it. Discuss the resulting ecological and geomorphic consequences, including the conversion of river-wetland corridors to channelized streams and the subsequent conversion of riparian (wet) to upland (dry) conditions.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Original document: USDA Forest Service, Washington Office — Enterprise Program | Restoration Services
+
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "toc.follow", "toc.integrate", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
