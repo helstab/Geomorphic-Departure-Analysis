@@ -3,8 +3,8 @@ site_description: Applying the Geomorphic Grade Line and Relative Elevation Mode
 site_author: USDA Forest Service — Aquatic Restoration Team
 
 # If publishing to GitHub Pages, set this to your repo URL
-# repo_url: https://github.com/YOUR_USER/YOUR_REPO
-# repo_name: YOUR_USER/YOUR_REPO
+repo_url: https://github.com/YOUR_USER/YOUR_REPO
+repo_name: helstab/Geomorphic-Departure-Analysis
 
 theme:
   name: material
