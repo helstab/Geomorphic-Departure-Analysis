@@ -2,6 +2,11 @@
 
 A MkDocs Material rendering of *A Guide to Geomorphic Departure Analysis using Relative Elevation Models in ArcGIS Pro* (USDA Forest Service, Lower Middle Fork Teanaway River).
 
+
+Click [Depature Analysis][ref]
+
+[ref]: https://helstab.github.io/Geomorphic-Departure-Analysis/
+
 ## Repository Layout
 
 ```
