@@ -37,13 +37,22 @@ The framework is grounded in the Stream Evolution Model and Stream Evolution Tri
 
 ## Generalized Workflow
 
+## Generalized Workflow
+
 ```mermaid
 flowchart TD
-    A[1. Watershed Setting Analysis] --> B[2. Valley Delineation and Classification]
-    B --> C[3. Surface Classification]
-    C --> D[4. Reference Condition Reconstruction T1/GGL]
-    D --> E[5. Departure Analysis GIS + HEC-RAS]
-    E --> F[6. Restoration Strategy Process-led / Process-reset]
+    A["1. Watershed Setting Analysis"]
+    B["2. Valley Delineation and Classification"]
+    C["3. Surface Classification"]
+    D["4. Reference Condition Reconstruction T1/GGL"]
+    E["5. Departure Analysis GIS + HEC-RAS"]
+    F["6. Restoration Strategy Process-led / Process-reset"]
+    
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
 ```
 
 ## Source Document
