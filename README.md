@@ -6,5 +6,5 @@ A MkDocs Material rendering of *A Guide to Geomorphic Departure Analysis using R
 
 [ref]: https://helstab.github.io/Geomorphic-Departure-Analysis/
 
-# [DEM Download][ref2]
-[ref2]: https://drive.google.com/drive/folders/1nRSx8bKMWPwvrVGQ6sYkTUCcWaSd_Ltu?usp=sharing
+# [Middle Fork Teanaway Demo Data Download][ref2]
+[ref2]: [https://drive.google.com/drive/folders/1nRSx8bKMWPwvrVGQ6sYkTUCcWaSd_Ltu?usp=sharing](https://drive.google.com/drive/folders/1MDNTlOTDa3p1bgwl9_adD5PdIAZ7HaMD?usp=sharing)
